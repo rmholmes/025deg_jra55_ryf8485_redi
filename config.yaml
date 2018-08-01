@@ -2,7 +2,7 @@
 queue: normal
 project: e14
 walltime: 5:00:00
-jobname: 025deg_jra55_ryf8485
+jobname: 025deg_jra55_ryf8485_redi
 ncpus: 1936
 
 shortpath: /short/e14
@@ -17,7 +17,7 @@ submodels:
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_5dd8e902.x
+      exe: fms_ACCESS-OM_2acfd7e8.x
       input: mom_025deg
       timestep: 1800
       ncpus: 1455

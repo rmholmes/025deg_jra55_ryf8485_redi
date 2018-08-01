@@ -118,11 +118,13 @@
 /
 
  &ocean_density_nml
+      neutral_density_theta=.true.
+      neutral_density_potrho=.false.
+      neutralrho_min=-3.0
+      neutralrho_max=34.0
+      layer_nk=74
       potrho_min=1028.0
       potrho_max=1038.0
-      neutralrho_min=1028.0
-      neutralrho_max=1038.0
-      layer_nk=80
       eos_linear=.false.
       eos_preteos10=.true. 
 /
@@ -204,59 +206,80 @@
 	  rayleigh_damp_exp_from_bottom=.false.
 /
 
- &ocean_nphysicsA_nml
-      use_this_module=.false.
+&ocean_nphysics_nml
+    debug_this_module = .false.
+    use_nphysicsa = .false.
+    use_nphysicsb = .false.
+    use_nphysicsc = .true.
+    use_this_module = .true.
+/
+&ocean_nphysics_util_new_nml
+/
+&ocean_nphysics_util_nml
+    nphysics_util_zero_init = .true.
+    aredi = 300.0
+    agm = 0.0
+    aredi_equal_agm = .false.
+    drhodz_mom4p1 = .true.
+    drhodz_smooth_horz = .false.
+    drhodz_smooth_vert = .false.
+    tracer_mix_micom = .false.
+    vel_micom = 0.0
+    agm_closure = .false.
+    agm_closure_scaling = 0.07
+    agm_closure_grid_scaling = .true.
+    agm_closure_min = 50.0
+    agm_closure_max = 600.0
+    agm_closure_length_fixed = .false.
+    agm_closure_length_rossby = .false.
+    agm_closure_length_bczone = .false.
+    agm_closure_baroclinic = .true.
+    agm_closure_eden_greatbatch = .false.
+    agm_closure_eden_gamma = 0.0
+    agm_closure_eady_smooth_vert = .true.
+    agm_closure_eady_smooth_horz = .true.
+    agm_closure_eady_cap = .true.
+    agm_closure_eady_ave_mixed = .true.
+    agm_smooth_space = .false.
+    agm_smooth_time = .false.
+    agm_damping_time = 45.0
+    agm_closure_length = 50000.0
+    agm_closure_buoy_freq = 0.004
+    agm_closure_upper_depth = 100.0
+    agm_closure_lower_depth = 2000.0
+    rossby_radius_max = 100000.0
+    rossby_radius_min = 15000.0
+/
+&ocean_nphysicsa_nml
+    use_this_module = .false.
+/
+&ocean_nphysicsb_nml
+    use_this_module = .false.
+/
+&ocean_nphysicsc_nml
+    use_this_module = .true.
+    do_neutral_diffusion = .true.
+    do_gm_skewsion = .false.
+    gm_skewsion_modes = .false.
+    gm_skewsion_bvproblem = .true.
+    number_bc_modes = 2
+    bvp_bc_mode = 2
+    bvp_speed = 0.0
+    bvp_min_speed = 0.1
+    smooth_psi = .true.
+    regularize_psi = .false.
+    smax_psi = 0.01
+    epsln_bv_freq = 1e-12
+    bv_freq_smooth_vert = .true.
+    debug_this_module = .false.
+    turb_blayer_min = 50.0
+    neutral_physics_limit = .true.
+    neutral_eddy_depth = .true.
+    tmask_neutral_on = .true.
 /
 
- &ocean_nphysicsB_nml
-      use_this_module=.false.
-/
+&ocean_nphysics_new_nml
 
- &ocean_nphysicsC_nml
-      use_this_module=.false.
-/
-
- &ocean_nphysics_new_nml
-
-/
-
- &ocean_nphysics_nml
-	use_this_module=.false.
-	debug_this_module=.false.
-	use_nphysicsA=.false.
-	use_nphysicsB=.false.
-	use_nphysicsC=.false.
-/
-
- &ocean_nphysics_util_new_nml
-
-/
-
- &ocean_nphysics_util_nml
-	smax=0.002
-	swidth=0.002
-	aredi=600.0
-	agm=100.0
-	aredi_equal_agm=.false.
-	drhodz_mom4p1=.false.
-	drhodz_smooth_horz=.false.
-	drhodz_smooth_vert=.false.
-	tracer_mix_micom=.false.
-	vel_micom=0.0
-	agm_closure=.true.
-	agm_closure_scaling=0.07
-	agm_closure_min=100.0
-	agm_closure_max=600.0
-	agm_closure_length_fixed=.false.
-	agm_closure_length_rossby=.false.
-	agm_closure_length_bczone=.false.
-	agm_closure_baroclinic=.true.
-	agm_closure_length=50.e3
-	agm_closure_buoy_freq=.004
-	agm_closure_upper_depth=100.0
-	agm_closure_lower_depth=2000.0
-	rossby_radius_max=100e3
-	rossby_radius_min=15e3
 /
 
  &ocean_obc_nml
